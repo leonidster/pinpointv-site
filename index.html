@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PinpoinTV — AI picks what to watch on Android TV, by mood</title>
+<meta name="description" content="Stop scrolling, start watching. PinpoinTV uses AI to recommend a movie or show for your mood — limited to the streaming services you already have. Free on Android TV & Google TV." />
+
+<!-- Open Graph / social preview -->
+<meta property="og:title" content="PinpoinTV — Stop scrolling. Start watching." />
+<meta property="og:description" content="AI picks one movie or show for your mood, from only the streaming services you have. Free on Android TV." />
+<meta property="og:image" content="assets/feature-graphic.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<style>
+  :root{
+    --navy-top:#0f243e; --navy-bot:#05080f; --orange:#e8902e;
+    --white:#f5f7fa; --muted:#9fb0c5; --card:#10192a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(180deg,var(--navy-top),var(--navy-bot) 70%);
+    color:var(--white); line-height:1.55; min-height:100vh;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  a{color:var(--orange);text-decoration:none}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--orange);color:#0b0e16;font-weight:800;
+    padding:16px 30px;border-radius:50px;font-size:1.05rem;
+    box-shadow:0 8px 30px rgba(232,144,46,.35);transition:transform .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn.secondary{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.25);box-shadow:none}
+
+  header.hero{text-align:center;padding:70px 0 50px}
+  .logo{width:118px;height:118px;border-radius:26px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  h1{font-size:clamp(2.1rem,6vw,3.6rem);font-weight:900;margin:22px 0 6px;letter-spacing:-1px}
+  .tag{color:var(--orange);font-weight:800;font-size:clamp(1.1rem,3vw,1.5rem);margin-bottom:14px}
+  .sub{color:var(--muted);max-width:620px;margin:0 auto 30px;font-size:1.12rem}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  .video-wrap{margin:46px auto;max-width:760px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .video-wrap iframe{width:100%;height:100%;border:0}
+
+  section{padding:54px 0}
+  h2{text-align:center;font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900;margin-bottom:8px}
+  .lead{text-align:center;color:var(--muted);max-width:640px;margin:0 auto 38px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .step{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:26px 22px;text-align:center}
+  .step .n{width:44px;height:44px;border-radius:50%;background:var(--orange);color:#0b0e16;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:1.2rem}
+  .step h3{font-size:1.2rem;margin-bottom:6px}
+  .step p{color:var(--muted);font-size:.98rem}
+
+  .shots{display:flex;gap:18px;overflow-x:auto;padding:6px 2px 20px;scroll-snap-type:x mandatory}
+  .shots img{height:230px;border-radius:12px;scroll-snap-align:center;box-shadow:0 10px 30px rgba(0,0,0,.45);flex:0 0 auto}
+
+  .feats{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:820px;margin:0 auto}
+  .feat{display:flex;gap:14px;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px}
+  .feat .ico{font-size:1.6rem}
+  .feat h3{font-size:1.08rem;margin-bottom:3px}
+  .feat p{color:var(--muted);font-size:.95rem}
+
+  .band{text-align:center;background:linear-gradient(180deg,rgba(232,144,46,.10),transparent);border-radius:24px;padding:50px 20px;margin:30px 0}
+
+  footer{text-align:center;color:var(--muted);padding:40px 0 60px;font-size:.9rem}
+  footer a{color:var(--muted);margin:0 10px}
+
+  @media(max-width:720px){
+    .steps{grid-template-columns:1fr}
+    .feats{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="assets/icon-redesign-512.png" alt="PinpoinTV logo" />
+    <h1>PinpoinTV</h1>
+    <div class="tag">Stop scrolling. Start watching.</div>
+    <p class="sub">An AI that picks <strong>one</strong> movie or show for your mood — from only the streaming services you already pay for. Built for your TV remote.</p>
+    <div class="cta-row">
+      <!-- TODO: replace # with your Google Play listing URL -->
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">▶ Get it free on Google Play</a>
+      <a class="btn secondary" href="#how">See how it works</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/w4Oy2HNAvKk" title="PinpoinTV demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <h2>Three taps to movie night</h2>
+    <p class="lead">No endless grid. No 200 thumbnails. Just a decision.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Pick your mood</h3><p>Light &amp; funny, tense, cozy, epic — how you actually feel tonight.</p></div>
+      <div class="step"><div class="n">2</div><h3>Pick a genre &amp; type</h3><p>Movie or series, and the vibe you're after.</p></div>
+      <div class="step"><div class="n">3</div><h3>Get one AI pick</h3><p>Tailored to your subscriptions and country — with poster and details.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>See it in action</h2>
+    <p class="lead">Real screens from the app.</p>
+    <div class="shots">
+      <img src="assets/store-2-mood.png" alt="Mood selection screen" />
+      <img src="assets/store-3-genre.png" alt="Genre selection screen" />
+      <img src="assets/store-4-platforms.png" alt="Streaming platforms screen" />
+      <img src="assets/store-5-region.png" alt="Watch region screen" />
+      <img src="assets/store-1-result.png" alt="Recommendation result screen" />
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Why it's different</h2>
+    <div class="feats">
+      <div class="feat"><div class="ico">🎯</div><div><h3>Mood-first</h3><p>Genre is too broad. "I want to laugh" gets you to a pick faster.</p></div></div>
+      <div class="feat"><div class="ico">📺</div><div><h3>Only your subscriptions</h3><p>Never recommends something locked behind a service you don't have.</p></div></div>
+      <div class="feat"><div class="ico">🕹️</div><div><h3>Made for the remote</h3><p>Big cards, D-pad navigation, readable from the couch.</p></div></div>
+      <div class="feat"><div class="ico">⚡</div><div><h3>Decide in seconds</h3><p>One concrete pick — not another wall of thumbnails to scroll.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="band">
+    <h2>Ready to stop scrolling?</h2>
+    <p class="lead">Free on Android TV &amp; Google TV.</p>
+    <!-- TODO: replace # with your Google Play listing URL -->
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">▶ Get PinpoinTV free</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>PinpoinTV — AI movie &amp; TV recommendations for Android TV.</p>
+    <p style="margin-top:10px">
+      <!-- TODO: add real links -->
+      <a href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">Google Play</a> ·
+      <a href="https://youtu.be/w4Oy2HNAvKk">Demo video</a> ·
+      <a href="#">Feedback</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
