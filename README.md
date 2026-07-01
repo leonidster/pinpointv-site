@@ -26,6 +26,6 @@ Tip: in a text editor, find-and-replace `href="#"` → your Play URL all at once
 - Both give a free `*.netlify.app` / `*.pages.dev` domain; add a custom domain later if you want.
 
 ## Notes
-- **The embedded video** will only play once the page is served from a real `http(s)` URL **and** the YouTube video `w4Oy2HNAvKk` is set to **Public** (Unlisted also works for embeds). It will NOT play from a local `file://` open — that's expected.
+- **The embedded video** will only play once the page is served from a real `http(s)` URL **and** the YouTube video `3DqXRZgC7nM` is set to **Public** (Unlisted also works for embeds). It will NOT play from a local `file://` open — that's expected.
 - The page is already SEO + social-share ready (title, meta description, Open Graph image = your feature graphic).
 - This is your **link-in-bio** destination for every social profile (TikTok, IG, X, Reddit, YouTube).
