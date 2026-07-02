@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://leonidster.github.io/pinpointv-site/sitemap.xml
+Sitemap: https://pinpointv.com/sitemap.xml
