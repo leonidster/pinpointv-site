@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>What should I watch tonight? — Free mood picker | PinpoinTV</title>
+<meta name="description" content="Can't decide what to watch? Pick your mood and streaming services and get one perfect movie or show to watch tonight — free, no sign-up. Then get PinpoinTV free on your Android TV." />
+<link rel="canonical" href="https://pinpointv.com/try/" />
+<meta name="keywords" content="what should I watch, what to watch tonight, mood movie picker, what to watch on Netflix, random movie generator, PinpoinTV" />
+
+<meta property="og:title" content="What should I watch tonight? — pick by mood" />
+<meta property="og:description" content="Tell us your mood + your streaming services. Get one perfect pick in seconds. Free, no sign-up." />
+<meta property="og:image" content="https://pinpointv.com/assets/feature-graphic.png" />
+<meta property="og:url" content="https://pinpointv.com/try/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="PinpoinTV" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="What should I watch tonight? — pick by mood" />
+<meta name="twitter:description" content="Tell us your mood + your streaming services. Get one perfect pick in seconds. Free, no sign-up." />
+<meta name="twitter:image" content="https://pinpointv.com/assets/feature-graphic.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PinpoinTV Mood Picker",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Web",
+  "url": "https://pinpointv.com/try/",
+  "description": "A free web tool that recommends one movie or show to watch tonight based on your mood and streaming services.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "isPartOf": { "@type": "SoftwareApplication", "name": "PinpoinTV", "operatingSystem": "Android TV, Google TV" }
+}
+</script>
+
+<style>
+  :root{
+    --navy-top:#0f243e; --navy-bot:#05080f; --orange:#e8902e;
+    --white:#f5f7fa; --muted:#9fb0c5; --card:#10192a; --panel:#0b1220;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:#000; color:var(--white); line-height:1.5; min-height:100vh;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+
+  /* top brand bar (mirrors the app header) */
+  .appbar{display:flex;align-items:center;justify-content:center;gap:12px;padding:26px 0 6px;position:relative}
+  .appbar .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.5rem;letter-spacing:-.5px}
+  .appbar .brand img{width:38px;height:38px;border-radius:9px}
+  .appbar .sub{position:absolute;top:64px;left:0;right:0;text-align:center;color:var(--muted);font-size:.95rem}
+  .backhome{position:absolute;right:0;top:26px}
+  .backhome a{color:var(--muted);font-size:.85rem;text-decoration:none;border:1px solid rgba(255,255,255,.14);padding:8px 14px;border-radius:40px}
+
+  .stage{max-width:920px;margin:0 auto;padding:70px 0 40px;text-align:center;min-height:60vh}
+  .q{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:900;margin-bottom:6px;letter-spacing:-.5px}
+  .qsub{color:var(--muted);margin-bottom:30px;font-size:1.02rem}
+
+  .grid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;max-width:860px;margin:0 auto}
+  .tile{
+    display:flex;align-items:center;gap:12px;
+    background:#0e1626;border:2px solid var(--tc,#2a3346);
+    border-radius:16px;padding:20px 26px;font-size:1.15rem;font-weight:800;
+    cursor:pointer;transition:transform .12s ease,box-shadow .2s ease,background .2s ease;
+    color:var(--white);min-width:210px;justify-content:center;
+    box-shadow:0 0 0 rgba(0,0,0,0);
+  }
+  .tile .em{font-size:1.5rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
+  .tile:hover{transform:translateY(-3px);background:#131f34;box-shadow:0 0 22px -4px var(--tc,#2a3346)}
+  .tile:focus-visible{outline:none;transform:translateY(-3px);box-shadow:0 0 26px -2px var(--tc,#2a3346)}
+
+  /* service chips */
+  .svc{
+    display:flex;align-items:center;gap:12px;background:#0e1626;border:2px solid #2a3346;
+    border-radius:16px;padding:16px 22px;font-size:1.1rem;font-weight:800;cursor:pointer;
+    min-width:230px;justify-content:space-between;transition:all .15s ease;
+  }
+  .svc .l{display:flex;align-items:center;gap:12px}
+  .svc .logo{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;color:#fff}
+  .svc .chk{width:26px;height:26px;border-radius:50%;border:2px solid #33415c;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem}
+  .svc.on{border-color:#3ddc84;background:#0d2018}
+  .svc.on .chk{background:#2ec46b;border-color:#2ec46b}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#0b0e16;font-weight:900;
+    padding:15px 30px;border-radius:50px;font-size:1.05rem;border:0;cursor:pointer;
+    box-shadow:0 8px 30px rgba(232,144,46,.35);transition:transform .15s ease;text-decoration:none;
+  }
+  .btn:hover{transform:translateY(-2px)}
+  .btn.secondary{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.22);box-shadow:none}
+  .btn.tv{background:#2ec46b;color:#04140b;box-shadow:0 8px 30px rgba(46,196,107,.32)}
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+
+  .backlink{margin-top:26px}
+  .backlink button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.95rem;text-decoration:underline}
+
+  /* progress dots */
+  .dots{display:flex;gap:8px;justify-content:center;margin-bottom:30px}
+  .dots i{width:9px;height:9px;border-radius:50%;background:#243149;transition:all .2s}
+  .dots i.active{background:var(--orange);width:26px;border-radius:6px}
+
+  /* result card — mirrors the app result screen */
+  .result{max-width:820px;margin:0 auto;text-align:left;animation:pop .35s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .rescard{display:flex;gap:26px;background:linear-gradient(160deg,#0e1626,#0a1120);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:26px;flex-wrap:wrap}
+  .poster{flex:0 0 210px;height:310px;border-radius:16px;display:flex;align-items:flex-end;justify-content:center;padding:16px;text-align:center;font-weight:900;font-size:1.35rem;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.6);box-shadow:0 14px 40px rgba(0,0,0,.5);position:relative;overflow:hidden}
+  .poster span{position:relative;z-index:2;line-height:1.15}
+  .poster .big{position:absolute;top:14px;left:0;right:0;font-size:3.6rem;opacity:.28;z-index:1}
+  .rbody{flex:1;min-width:280px}
+  .rtitle{font-size:1.9rem;font-weight:900;letter-spacing:-.5px;margin-bottom:12px}
+  .pills{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px}
+  .pill{padding:7px 14px;border-radius:40px;font-weight:800;font-size:.9rem;color:#fff;white-space:nowrap}
+  .pill.g{background:#e0533f}.pill.t{background:#e0533f}.pill.i{background:#e8902e}
+  .pill.c{background:#2f9e57}.pill.s{background:#d13b3b;display:inline-flex;align-items:center;gap:6px}
+  .rdesc{color:#cdd7e6;font-size:1.02rem;margin-bottom:22px}
+  .ractions{display:flex;gap:12px;flex-wrap:wrap}
+
+  .tvcta{text-align:center;background:linear-gradient(180deg,rgba(46,196,107,.10),transparent);border:1px solid rgba(46,196,107,.18);border-radius:20px;padding:30px 20px;margin:28px auto 0;max-width:820px}
+  .tvcta h3{font-size:1.35rem;font-weight:900;margin-bottom:6px}
+  .tvcta p{color:var(--muted);margin-bottom:18px;max-width:540px;margin-left:auto;margin-right:auto}
+
+  footer{text-align:center;color:var(--muted);padding:40px 0 60px;font-size:.85rem}
+  footer a{color:var(--muted);margin:0 8px;text-decoration:none}
+
+  .hidden{display:none!important}
+  @media(max-width:560px){
+    .tile{min-width:150px;padding:16px;font-size:1.02rem}
+    .poster{flex-basis:100%;height:220px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="appbar">
+    <div class="brand"><img src="../assets/icon-redesign-512.png" alt="PinpoinTV logo" /> PinpoinTV</div>
+    <div class="sub">Find your perfect thing to watch</div>
+    <div class="backhome"><a href="../">← Home</a></div>
+  </div>
+
+  <div class="stage">
+    <div class="dots" id="dots"><i class="active"></i><i></i><i></i></div>
+
+    <!-- STEP 1: MOOD -->
+    <div id="step-mood">
+      <div class="q">How are you feeling?</div>
+      <div class="qsub">Pick a mood and we'll find your watch for tonight.</div>
+      <div class="grid" id="moodGrid"></div>
+    </div>
+
+    <!-- STEP 2: SERVICES -->
+    <div id="step-svc" class="hidden">
+      <div class="q">Which services do you have?</div>
+      <div class="qsub">We'll only pick something you can actually stream.</div>
+      <div class="grid" id="svcGrid"></div>
+      <div class="btnrow">
+        <button class="btn" id="svcGo">Get my pick →</button>
+      </div>
+      <div class="backlink"><button onclick="goMood()">← back</button></div>
+    </div>
+
+    <!-- STEP 3: RESULT -->
+    <div id="step-result" class="hidden">
+      <div class="result" id="resultCard"></div>
+      <div class="tvcta">
+        <h3>📺 Want this on your actual TV?</h3>
+        <p>PinpoinTV runs right on your Android TV &amp; Google TV — pick a mood with your remote and get a fresh pick in seconds. Free, no sign-up.</p>
+        <a class="btn tv" href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">▶ Get PinpoinTV free on your TV</a>
+      </div>
+      <div class="backlink"><button onclick="goMood()">↺ Start over</button></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>PinpoinTV — AI picks what to watch, by mood. Free on Android TV &amp; Google TV.</div>
+  <div style="margin-top:8px">
+    <a href="../">Home</a> ·
+    <a href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">Google Play</a> ·
+    <a href="https://youtu.be/hvvIEP1JhcY">Demo</a>
+  </div>
+</footer>
+
+<script>
+/* ---- moods (match the app) ---- */
+const MOODS = [
+  {id:"relaxed",   label:"Relaxed",   em:"😌", c:"#2ec4b6"},
+  {id:"excited",   label:"Excited",   em:"🤩", c:"#e8902e"},
+  {id:"funny",     label:"Funny",     em:"😂", c:"#f2c744"},
+  {id:"tense",     label:"Tense",     em:"😰", c:"#e0533f"},
+  {id:"romantic",  label:"Romantic",  em:"💕", c:"#ff6fae"},
+  {id:"curious",   label:"Curious",   em:"🤔", c:"#a06be0"},
+  {id:"adventurous",label:"Adventurous",em:"🧭", c:"#e8902e"},
+  {id:"nostalgic", label:"Nostalgic", em:"📼", c:"#c8a06a"},
+  {id:"happy",     label:"Happy",     em:"😄", c:"#f2c744"},
+  {id:"melancholic",label:"Melancholic",em:"🌧️", c:"#7f93ad"}
+];
+
+/* ---- services ---- */
+const SERVICES = [
+  {id:"netflix", label:"Netflix",     short:"N",  bg:"#e50914", watch:"Watch on Netflix"},
+  {id:"disney",  label:"Disney+",     short:"D+", bg:"#0f2a72", watch:"Watch on Disney+"},
+  {id:"max",     label:"Max",         short:"max",bg:"#0a1a3f", watch:"Watch on Max"},
+  {id:"prime",   label:"Prime Video", short:"pv", bg:"#1a98ff", watch:"Watch on Prime Video"}
+];
+
+/* ---- curated catalog: each pick tagged by mood + service ----
+   fields: title, year, type, genre, imdb, country, service, blurb, color(poster gradient) */
+const CATALOG = [
+  // RELAXED
+  {t:"The Holdovers",y:2023,type:"Movie",g:"Comedy",i:"7.9",c:"USA",mood:"relaxed",svc:"max",b:"A cranky teacher, a lonely kid and a grieving cook get snowed in over Christmas break. Warm, funny and quietly moving.",col:"#3a5a40"},
+  {t:"Chef",y:2014,type:"Movie",g:"Comedy",i:"7.3",c:"USA",mood:"relaxed",svc:"netflix",b:"A chef quits to run a food truck. A feel-good, delicious road trip about doing what you love.",col:"#bc6c25"},
+  {t:"Ted Lasso",y:2020,type:"TV Show",g:"Comedy",i:"8.8",c:"UK",mood:"relaxed",svc:"prime",b:"An American coach charms an English football team with relentless kindness. Pure comfort viewing.",col:"#1b4965"},
+  {t:"Our Planet",y:2019,type:"TV Show",g:"Documentary",i:"9.3",c:"UK",mood:"relaxed",svc:"netflix",b:"Breathtaking nature, narrated by Attenborough. Put it on and just breathe.",col:"#2a6f57"},
+
+  // EXCITED
+  {t:"Mad Max: Fury Road",y:2015,type:"Movie",g:"Action",i:"8.1",c:"AU",mood:"excited",svc:"max",b:"One long, glorious chase across the wasteland. Non-stop, practical, insane.",col:"#c1440e"},
+  {t:"Top Gun: Maverick",y:2022,type:"Movie",g:"Action",i:"8.2",c:"USA",mood:"excited",svc:"prime",b:"The rare sequel that soars. Real jets, real stakes, a total crowd-pleaser.",col:"#1d3557"},
+  {t:"Arcane",y:2021,type:"TV Show",g:"Sci-Fi",i:"9.0",c:"USA",mood:"excited",svc:"netflix",b:"Jaw-dropping animation and a story with real teeth. You'll binge it.",col:"#3d348b"},
+  {t:"Spider-Man: Into the Spider-Verse",y:2018,type:"Movie",g:"Action",i:"8.4",c:"USA",mood:"excited",svc:"disney",b:"A visual explosion with huge heart. Unlike anything else.",col:"#e5383b"},
+
+  // FUNNY
+  {t:"What We Do in the Shadows",y:2019,type:"TV Show",g:"Comedy",i:"8.6",c:"USA",mood:"funny",svc:"max",b:"Vampire roommates bicker about chores and centuries-old grudges. Absurd and brilliant.",col:"#5a189a"},
+  {t:"Game Night",y:2018,type:"Movie",g:"Comedy",i:"6.9",c:"USA",mood:"funny",svc:"netflix",b:"A couples' game night turns into a real crime caper. Sharp, twisty and very funny.",col:"#9d4edd"},
+  {t:"The Grand Budapest Hotel",y:2014,type:"Movie",g:"Comedy",i:"8.1",c:"USA",mood:"funny",svc:"disney",b:"Wes Anderson at his most delightful. A concierge, a lobby boy, a stolen painting.",col:"#d6a2ad"},
+  {t:"Brooklyn Nine-Nine",y:2013,type:"TV Show",g:"Comedy",i:"8.4",c:"USA",mood:"funny",svc:"prime",b:"The most rewatchable workplace comedy of the last decade. Cool. Cool cool cool.",col:"#3a86ff"},
+
+  // TENSE
+  {t:"Uncut Gems",y:2019,type:"Movie",g:"Thriller",i:"7.4",c:"USA",mood:"tense",svc:"netflix",b:"A jeweler makes bet after bet in a spiraling panic attack of a movie. Grips your throat.",col:"#8d0801"},
+  {t:"Sicario",y:2015,type:"Movie",g:"Thriller",i:"7.6",c:"USA",mood:"tense",svc:"prime",b:"A dread-soaked border thriller. Villeneuve at his most nerve-shredding.",col:"#432818"},
+  {t:"The Bear",y:2022,type:"TV Show",g:"Drama",i:"8.6",c:"USA",mood:"tense",svc:"disney",b:"A fine-dining chef takes over his family's chaotic sandwich shop. Stress you can taste.",col:"#6f1d1b"},
+  {t:"Chernobyl",y:2019,type:"TV Show",g:"Drama",i:"9.3",c:"USA",mood:"tense",svc:"max",b:"Five hours of immaculate, suffocating dread. One of the best mini-series ever.",col:"#414833"},
+
+  // ROMANTIC
+  {t:"Past Lives",y:2023,type:"Movie",g:"Romance",i:"7.8",c:"USA",mood:"romantic",svc:"prime",b:"Two childhood friends reconnect across decades and oceans. Aching and beautiful.",col:"#b56576"},
+  {t:"Pride & Prejudice",y:2005,type:"Movie",g:"Romance",i:"7.8",c:"UK",mood:"romantic",svc:"netflix",b:"The definitive swoon. Misty fields, longing glances, that hand flex.",col:"#6d597a"},
+  {t:"Normal People",y:2020,type:"TV Show",g:"Romance",i:"8.4",c:"IE",mood:"romantic",svc:"max",b:"An intimate, tender love story that will quietly wreck you.",col:"#8a5a44"},
+  {t:"The Notebook",y:2004,type:"Movie",g:"Romance",i:"7.5",c:"USA",mood:"romantic",svc:"max",b:"The classic tearjerker. Grab tissues.",col:"#a4133c"},
+
+  // CURIOUS
+  {t:"Everything Everywhere All at Once",y:2022,type:"Movie",g:"Sci-Fi",i:"7.8",c:"USA",mood:"curious",svc:"prime",b:"A laundromat owner saves the multiverse. Wild, hilarious, unexpectedly profound.",col:"#7209b7"},
+  {t:"Dark",y:2017,type:"TV Show",g:"Sci-Fi",i:"8.7",c:"DE",mood:"curious",svc:"netflix",b:"A German time-travel puzzle box. Draw a family tree — you'll need it.",col:"#22223b"},
+  {t:"Devs",y:2020,type:"TV Show",g:"Sci-Fi",i:"7.7",c:"USA",mood:"curious",svc:"disney",b:"A hypnotic tech thriller about determinism and a secret quantum project.",col:"#274060"},
+  {t:"Arrival",y:2016,type:"Movie",g:"Sci-Fi",i:"7.9",c:"USA",mood:"curious",svc:"max",b:"A linguist meets aliens and time itself bends. Cerebral and moving.",col:"#1b263b"},
+
+  // ADVENTUROUS
+  {t:"The Lord of the Rings: Fellowship",y:2001,type:"Movie",g:"Adventure",i:"8.9",c:"NZ",mood:"adventurous",svc:"max",b:"The journey begins. Still the gold standard for epic adventure.",col:"#344e41"},
+  {t:"Indiana Jones: Raiders",y:1981,type:"Movie",g:"Adventure",i:"8.4",c:"USA",mood:"adventurous",svc:"disney",b:"Whips, boulders, Nazis and the greatest adventure hero ever.",col:"#7f5539"},
+  {t:"Avatar: The Last Airbender",y:2005,type:"TV Show",g:"Adventure",i:"9.3",c:"USA",mood:"adventurous",svc:"netflix",b:"Not just for kids — a perfect adventure epic with heart and growth.",col:"#2a9d8f"},
+  {t:"The Revenant",y:2015,type:"Movie",g:"Adventure",i:"8.0",c:"USA",mood:"adventurous",svc:"prime",b:"A brutal wilderness survival tale, shot in real freezing light.",col:"#495057"},
+
+  // NOSTALGIC
+  {t:"Stand By Me",y:1986,type:"Movie",g:"Drama",i:"8.1",c:"USA",mood:"nostalgic",svc:"prime",b:"Four boys, one summer, a walk that stays with you forever.",col:"#6a994e"},
+  {t:"Stranger Things",y:2016,type:"TV Show",g:"Sci-Fi",i:"8.7",c:"USA",mood:"nostalgic",svc:"netflix",b:"'80s nostalgia, bikes, walkie-talkies and a monster from the Upside Down.",col:"#9d0208"},
+  {t:"Back to the Future",y:1985,type:"Movie",g:"Sci-Fi",i:"8.5",c:"USA",mood:"nostalgic",svc:"max",b:"88 mph of pure joy. The perfect feel-good time-travel classic.",col:"#e85d04"},
+  {t:"The Wonder Years",y:1988,type:"TV Show",g:"Comedy",i:"8.3",c:"USA",mood:"nostalgic",svc:"disney",b:"Growing up, remembered with warmth and a wry smile.",col:"#b08968"},
+
+  // HAPPY
+  {t:"Paddington 2",y:2017,type:"Movie",g:"Comedy",i:"7.8",c:"UK",mood:"happy",svc:"max",b:"Possibly the kindest, most joyful film ever made. Everyone loves it.",col:"#e76f51"},
+  {t:"Spirited Away",y:2001,type:"Movie",g:"Adventure",i:"8.6",c:"JP",mood:"happy",svc:"max",b:"Ghibli magic. Pure wonder from the first frame.",col:"#457b9d"},
+  {t:"Schitt's Creek",y:2015,type:"TV Show",g:"Comedy",i:"8.5",c:"CA",mood:"happy",svc:"netflix",b:"A riches-to-rags family finds warmth and love. It gives you a hug.",col:"#e9c46a"},
+  {t:"Sing Street",y:2016,type:"Movie",g:"Comedy",i:"7.9",c:"IE",mood:"happy",svc:"prime",b:"A boy starts a band to impress a girl in '80s Dublin. Irresistibly joyful.",col:"#f4a261"},
+
+  // MELANCHOLIC
+  {t:"Lost in Translation",y:2003,type:"Movie",g:"Drama",i:"7.7",c:"USA",mood:"melancholic",svc:"max",b:"Two lonely people connect in Tokyo. Quiet, beautiful, bittersweet.",col:"#495867"},
+  {t:"Manchester by the Sea",y:2016,type:"Movie",g:"Drama",i:"7.8",c:"USA",mood:"melancholic",svc:"prime",b:"A devastating, tender study of grief and going on. Bring tissues.",col:"#2f3e46"},
+  {t:"After Life",y:2019,type:"TV Show",g:"Drama",i:"8.4",c:"UK",mood:"melancholic",svc:"netflix",b:"A grieving man learns to live again. Sad, sweet and surprisingly funny.",col:"#354f52"},
+  {t:"Blue Valentine",y:2010,type:"Movie",g:"Romance",i:"7.4",c:"USA",mood:"melancholic",svc:"disney",b:"The rise and fall of a marriage, told with raw honesty.",col:"#5c677d"}
+];
+
+const svcMeta = Object.fromEntries(SERVICES.map(s=>[s.id,s]));
+let picked = { mood:null, services:new Set() };
+
+/* ---- render mood tiles ---- */
+const moodGrid = document.getElementById('moodGrid');
+MOODS.forEach(m=>{
+  const b=document.createElement('button');
+  b.className='tile'; b.style.setProperty('--tc',m.c);
+  b.innerHTML=`<span class="em">${m.em}</span> ${m.label}`;
+  b.onclick=()=>{ picked.mood=m.id; goSvc(); };
+  moodGrid.appendChild(b);
+});
+
+/* ---- render service chips ---- */
+const svcGrid = document.getElementById('svcGrid');
+SERVICES.forEach(s=>{
+  const b=document.createElement('button');
+  b.className='svc';
+  b.innerHTML=`<span class="l"><span class="logo" style="background:${s.bg}">${s.short}</span>${s.label}</span><span class="chk">✓</span>`;
+  b.onclick=()=>{ b.classList.toggle('on'); if(picked.services.has(s.id))picked.services.delete(s.id); else picked.services.add(s.id); };
+  svcGrid.appendChild(b);
+});
+
+/* ---- steps ---- */
+const stepMood=document.getElementById('step-mood');
+const stepSvc=document.getElementById('step-svc');
+const stepRes=document.getElementById('step-result');
+const dots=[...document.querySelectorAll('#dots i')];
+function setDots(n){dots.forEach((d,i)=>d.classList.toggle('active',i===n));}
+function show(el){[stepMood,stepSvc,stepRes].forEach(s=>s.classList.add('hidden'));el.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+function goMood(){picked.mood=null;picked.services.clear();document.querySelectorAll('.svc.on').forEach(e=>e.classList.remove('on'));setDots(0);show(stepMood);}
+function goSvc(){setDots(1);show(stepSvc);}
+document.getElementById('svcGo').onclick=goResult;
+
+/* ---- recommendation logic ---- */
+function pickTitle(){
+  const svcs = picked.services.size ? picked.services : new Set(SERVICES.map(s=>s.id));
+  let pool = CATALOG.filter(x=>x.mood===picked.mood && svcs.has(x.svc));
+  if(!pool.length) pool = CATALOG.filter(x=>x.mood===picked.mood); // fallback: ignore service
+  if(!pool.length) pool = CATALOG;
+  return pool[Math.floor(Math.random()*pool.length)];
+}
+
+function goResult(){
+  const p=pickTitle();
+  const sm=svcMeta[p.svc];
+  const card=document.getElementById('resultCard');
+  const q = encodeURIComponent(p.t+' '+p.y+' trailer');
+  card.innerHTML=`
+    <div class="rescard">
+      <div class="poster" style="background:linear-gradient(160deg,${p.col},#0a1120)">
+        <div class="big">${MOODS.find(m=>m.id===picked.mood).em}</div>
+        <span>${p.t}</span>
+      </div>
+      <div class="rbody">
+        <div class="rtitle">${p.t} <span style="color:#8fa3bd;font-weight:800">(${p.y})</span></div>
+        <div class="pills">
+          <span class="pill g">${p.g}</span>
+          <span class="pill t">${p.type}</span>
+          <span class="pill i">⭐ ${p.i} IMDB</span>
+          <span class="pill c">🌍 ${p.c}</span>
+          <span class="pill s">📺 ${sm.label}</span>
+        </div>
+        <div class="rdesc">${p.b}</div>
+        <div class="ractions">
+          <button class="btn" onclick="goResult()">🎲 Suggest another</button>
+          <a class="btn secondary" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">▶ Watch trailer</a>
+        </div>
+      </div>
+    </div>`;
+  setDots(2);show(stepRes);
+}
+</script>
+</body>
+</html>
