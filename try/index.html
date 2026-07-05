@@ -125,6 +125,8 @@
   footer a{color:var(--muted);margin:0 8px;text-decoration:none}
 
   .hidden{display:none!important}
+  #toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);background:#0e1626;border:1px solid rgba(46,196,107,.4);color:#fff;padding:14px 22px;border-radius:40px;font-weight:700;font-size:.98rem;opacity:0;pointer-events:none;transition:all .25s ease;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:90vw}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   @media(max-width:560px){
     .tile{min-width:150px;padding:16px;font-size:1.02rem}
     .poster{flex-basis:100%;height:220px}
@@ -336,11 +338,39 @@ function goResult(){
         <div class="rdesc">${p.b}</div>
         <div class="ractions">
           <button class="btn" onclick="goResult()">🎲 Suggest another</button>
+          <button class="btn secondary" onclick="sharePick('${p.t.replace(/'/g,"\\'")}', '${p.y}', '${sm.label.replace(/'/g,"\\'")}')">🔗 Share this pick</button>
           <a class="btn secondary" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${q}">▶ Watch trailer</a>
         </div>
       </div>
     </div>`;
   setDots(2);show(stepRes);
+}
+
+/* ---- share (Web Share API on mobile, clipboard fallback on desktop) ---- */
+function showToast(msg){
+  let t=document.getElementById('toast');
+  if(!t){ t=document.createElement('div'); t.id='toast'; document.body.appendChild(t); }
+  t.textContent=msg; t.className='show';
+  clearTimeout(window._tt); window._tt=setTimeout(()=>{t.className='';},2600);
+}
+function copyShare(text, url){
+  const full=text+' '+url;
+  (navigator.clipboard?navigator.clipboard.writeText(full):Promise.reject())
+    .then(()=>showToast('Copied! Paste it anywhere 🔗'))
+    .catch(()=>{
+      const ta=document.createElement('textarea'); ta.value=full; document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy'); showToast('Copied! Paste it anywhere 🔗');}catch(e){showToast(full);}
+      document.body.removeChild(ta);
+    });
+}
+function sharePick(title, year, service){
+  const url='https://pinpointv.com/try';
+  const text=`PinpoinTV told me to watch ${title} (${year}) on ${service} tonight 🍿 What does it pick for you?`;
+  if(navigator.share){
+    navigator.share({title:'PinpoinTV', text, url}).catch(()=>copyShare(text,url));
+  } else {
+    copyShare(text,url);
+  }
 }
 </script>
 </body>
