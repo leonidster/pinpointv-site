@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>I Built an AI App to End the "What Should We Watch?" Fight on Android TV | PinpoinTV</title>
+<meta name="description" content="A maker story: why I built PinpoinTV — an Android TV app that picks what to watch by your mood, limited to the streaming services you already have. Stop scrolling, start watching." />
+<link rel="canonical" href="https://pinpointv.com/blog/what-to-watch-android-tv/" />
+<meta name="keywords" content="what to watch, what to watch on Android TV, what to watch tonight, mood based movie recommendations, cord cutting, Netflix, AI movie picker, PinpoinTV" />
+
+<meta property="og:title" content="I Built an AI App to End the 'What Should We Watch?' Fight on Android TV" />
+<meta property="og:description" content="Mood first, only your subscriptions, built for the remote. Why and how I built PinpoinTV for Android TV." />
+<meta property="og:image" content="https://pinpointv.com/assets/feature-graphic.png" />
+<meta property="og:url" content="https://pinpointv.com/blog/what-to-watch-android-tv/" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="PinpoinTV" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="I Built an AI App to End the 'What Should We Watch?' Fight on Android TV" />
+<meta name="twitter:description" content="Mood first, only your subscriptions, built for the remote. Why and how I built PinpoinTV." />
+<meta name="twitter:image" content="https://pinpointv.com/assets/feature-graphic.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Built an AI App to End the \"What Should We Watch?\" Fight on Android TV",
+  "description": "A maker story about building PinpoinTV — an Android TV app that recommends what to watch by mood, limited to the streaming services you already have.",
+  "image": "https://pinpointv.com/assets/feature-graphic.png",
+  "datePublished": "2026-07-05",
+  "dateModified": "2026-07-05",
+  "author": { "@type": "Person", "name": "Leonid Shlafman" },
+  "publisher": { "@type": "Organization", "name": "PinpoinTV", "logo": { "@type": "ImageObject", "url": "https://pinpointv.com/assets/icon-redesign-512.png" } },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://pinpointv.com/blog/what-to-watch-android-tv/" },
+  "about": { "@type": "SoftwareApplication", "name": "PinpoinTV", "operatingSystem": "Android TV, Google TV", "applicationCategory": "MultimediaApplication" }
+}
+</script>
+
+<style>
+  :root{
+    --navy-top:#0f243e; --navy-bot:#05080f; --orange:#e8902e;
+    --white:#f5f7fa; --muted:#9fb0c5; --card:#10192a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(180deg,var(--navy-top),var(--navy-bot) 70%);
+    color:var(--white); line-height:1.7; min-height:100vh;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  a{color:var(--orange);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .topbar{display:flex;align-items:center;gap:12px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:8px}
+  .topbar img{width:40px;height:40px;border-radius:9px}
+  .topbar .name{font-weight:900;font-size:1.2rem;letter-spacing:-.5px;color:var(--white)}
+  .topbar .name span{color:var(--orange)}
+  .crumbs{font-size:.85rem;color:var(--muted);margin-left:auto}
+  article{padding:34px 0 20px}
+  h1{font-size:clamp(1.8rem,5vw,2.7rem);font-weight:900;letter-spacing:-1px;line-height:1.2;margin-bottom:14px}
+  .byline{color:var(--muted);font-size:.95rem;margin-bottom:30px}
+  article h2{font-size:clamp(1.35rem,3.5vw,1.7rem);font-weight:800;margin:34px 0 12px;letter-spacing:-.4px}
+  article p{margin:0 0 18px;font-size:1.08rem}
+  article ol,article ul{margin:0 0 20px;padding-left:26px}
+  article li{margin-bottom:10px;font-size:1.08rem}
+  blockquote{border-left:3px solid var(--orange);background:var(--card);border-radius:0 12px 12px 0;padding:16px 20px;margin:0 0 22px;font-size:1.15rem;color:#e7edf5}
+  .shot{width:100%;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.5);margin:8px 0 26px}
+  .cta{text-align:center;background:linear-gradient(180deg,rgba(232,144,46,.10),transparent);border:1px solid rgba(232,144,46,.2);border-radius:20px;padding:34px 20px;margin:36px 0}
+  .cta h3{font-size:1.4rem;font-weight:900;margin-bottom:8px}
+  .cta p{color:var(--muted);max-width:520px;margin:0 auto 20px;font-size:1.02rem}
+  .btn{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#0b0e16;font-weight:800;padding:15px 28px;border-radius:50px;font-size:1.02rem;box-shadow:0 8px 30px rgba(232,144,46,.35);transition:transform .15s ease}
+  .btn:hover{transform:translateY(-2px);text-decoration:none}
+  .btn.secondary{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,.22);box-shadow:none}
+  .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  footer{text-align:center;color:var(--muted);padding:40px 0 60px;font-size:.88rem;border-top:1px solid rgba(255,255,255,.07);margin-top:20px}
+  footer a{color:var(--muted);margin:0 9px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a href="/"><img src="/assets/icon-redesign-512.png" alt="PinpoinTV logo" /></a>
+    <a href="/" class="name">Pinpoin<span>TV</span></a>
+    <span class="crumbs"><a href="/">Home</a> / Blog</span>
+  </div>
+
+  <article>
+    <h1>I Built an AI App to End the "What Should We Watch?" Fight on Android TV</h1>
+    <div class="byline">By Leonid Shlafman · July 5, 2026 · ~4 min read</div>
+
+    <h2>The 30-minute problem nobody talks about</h2>
+    <p>Every night it was the same ritual in my house. We'd sit down, turn on the TV, open one streaming app, scroll. Open another app, scroll. Read three plot summaries, watch two trailers, lose interest. Twenty, thirty minutes gone — and we <em>still</em> hadn't pressed play. Some nights we just gave up and went to bed.</p>
+    <p>The streaming services have a perverse incentive here: the longer you browse, the longer you're "engaged." Their home screens are designed to show you <em>everything</em>, not to help you decide. The paradox of choice is a feature, not a bug.</p>
+    <p>I'm a developer, so eventually I did what developers do: I got annoyed enough to build something.</p>
+
+    <h2>What I actually wanted</h2>
+    <p>Not another catalog. Not another "trending now" row. I wanted to answer one question fast:</p>
+    <blockquote>"Given how I feel right now, and the services I already pay for, what should I watch tonight?"</blockquote>
+    <p>Three constraints mattered:</p>
+    <ol>
+      <li><strong>Mood first.</strong> Some nights I want to laugh, some nights I want tension, some nights background comfort TV. Genre alone doesn't capture that.</li>
+      <li><strong>Only what I can actually watch.</strong> Recommending a movie that's locked behind a service I don't subscribe to is worse than useless.</li>
+      <li><strong>It has to work on the couch.</strong> This is a <em>TV</em> problem, so it has to work with a remote — D-pad navigation, big readable cards, no tiny touch targets.</li>
+    </ol>
+    <p>That last one is why I built it for <strong>Android TV</strong> specifically. Most "what to watch" tools are phone apps or websites. But the decision happens <em>in front of the TV</em>, remote in hand.</p>
+
+    <img class="shot" src="/assets/store-2-mood.png" alt="PinpoinTV mood selection screen on Android TV" loading="lazy" />
+
+    <h2>How PinpoinTV works</h2>
+    <p>The flow is deliberately short — three taps to a pick:</p>
+    <ol>
+      <li><strong>Pick your mood</strong> (How are you feeling? — e.g. light &amp; funny, tense, cozy, epic).</li>
+      <li><strong>Pick a genre / content type</strong> (movie or series, and the vibe).</li>
+      <li><strong>It uses AI to generate a tailored recommendation</strong> — filtered to the streaming subscriptions you've told it you have, and to your country's availability.</li>
+    </ol>
+    <p>You get a concrete pick with the poster and details, not a wall of 200 thumbnails. If it's not the one, you're one click from the next.</p>
+    <p>Under the hood it's a React Native (Expo) app using the new architecture, talking to an AI backend that does the recommendation reasoning, with poster/details enrichment so the result <em>looks</em> like a real choice, not a text blob.</p>
+
+    <img class="shot" src="/assets/store-4-platforms.png" alt="PinpoinTV streaming platform selection — Netflix, Disney+, Max, Prime Video" loading="lazy" />
+
+    <div class="cta">
+      <h3>🎬 Try it right now — no install</h3>
+      <p>Can't try a TV app from a link? I built a quick browser version. Pick a mood, pick your services, get a pick in ~15 seconds.</p>
+      <div class="btnrow">
+        <a class="btn" href="/try/">Try the mood picker →</a>
+      </div>
+    </div>
+
+    <h2>What I learned building for Android TV</h2>
+    <ul>
+      <li><strong>The remote changes everything.</strong> Focus states, D-pad order, and big hit areas aren't polish — they're the whole UX. A layout that's lovely on a phone is unusable from the couch.</li>
+      <li><strong>Less is the feature.</strong> Every extra option I added made the app <em>worse</em>. The win was showing <em>one</em> good pick fast, not a better grid.</li>
+      <li><strong>"Only on my subscriptions" is the killer feature.</strong> It's the difference between a fun toy and something you actually use on a Tuesday night.</li>
+    </ul>
+
+    <h2>Try it (and tell me what's missing)</h2>
+    <p>PinpoinTV is <strong>free on Google Play for Android TV &amp; Google TV</strong>: <a href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">get it here</a>. Or <a href="/try/">try the mood picker in your browser</a> first.</p>
+    <p>I'm still actively improving it, and honestly the most useful thing right now is blunt feedback. If you've ever lost half an evening to the scroll, I'd love to know whether this fixes it for you — and what would make it a daily habit.</p>
+    <p><em>Built by one person to solve one annoying problem. If it saves you even one "we spent longer choosing than watching" night, it did its job.</em></p>
+
+    <div class="cta">
+      <h3>Stop scrolling. Start watching.</h3>
+      <p>Free on Android TV &amp; Google TV. No account, no ads.</p>
+      <div class="btnrow">
+        <a class="btn" href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">▶ Get it free on Google Play</a>
+        <a class="btn secondary" href="/try/">🎬 Try it in your browser</a>
+      </div>
+    </div>
+  </article>
+</div>
+
+<footer>
+  <div>PinpoinTV — AI picks what to watch, by mood. Free on Android TV &amp; Google TV.</div>
+  <div style="margin-top:8px">
+    <a href="/">Home</a> ·
+    <a href="/try/">Try it</a> ·
+    <a href="https://play.google.com/store/apps/details?id=com.leonidster.moviesrecommenderreactnative">Google Play</a> ·
+    <a href="https://youtu.be/hvvIEP1JhcY">Demo</a>
+  </div>
+</footer>
+</body>
+</html>

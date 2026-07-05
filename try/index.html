@@ -205,7 +205,11 @@ const SERVICES = [
   {id:"netflix", label:"Netflix",     short:"N",  bg:"#e50914", watch:"Watch on Netflix"},
   {id:"disney",  label:"Disney+",     short:"D+", bg:"#0f2a72", watch:"Watch on Disney+"},
   {id:"max",     label:"Max",         short:"max",bg:"#0a1a3f", watch:"Watch on Max"},
-  {id:"prime",   label:"Prime Video", short:"pv", bg:"#1a98ff", watch:"Watch on Prime Video"}
+  {id:"prime",   label:"Prime Video", short:"pv", bg:"#1a98ff", watch:"Watch on Prime Video"},
+  {id:"apple",   label:"Apple TV+",   short:"tv+",bg:"#1c1c1e", watch:"Watch on Apple TV+"},
+  {id:"hulu",    label:"Hulu",        short:"h",  bg:"#1ce783", watch:"Watch on Hulu"},
+  {id:"peacock", label:"Peacock",     short:"pk", bg:"#05a0f0", watch:"Watch on Peacock"},
+  {id:"paramount",label:"Paramount+", short:"P+", bg:"#0064ff", watch:"Watch on Paramount+"}
 ];
 
 /* ---- curated catalog: each pick tagged by mood + service ----
@@ -269,7 +273,35 @@ const CATALOG = [
   {t:"Lost in Translation",y:2003,type:"Movie",g:"Drama",i:"7.7",c:"USA",mood:"melancholic",svc:"max",b:"Two lonely people connect in Tokyo. Quiet, beautiful, bittersweet.",col:"#495867"},
   {t:"Manchester by the Sea",y:2016,type:"Movie",g:"Drama",i:"7.8",c:"USA",mood:"melancholic",svc:"prime",b:"A devastating, tender study of grief and going on. Bring tissues.",col:"#2f3e46"},
   {t:"After Life",y:2019,type:"TV Show",g:"Drama",i:"8.4",c:"UK",mood:"melancholic",svc:"netflix",b:"A grieving man learns to live again. Sad, sweet and surprisingly funny.",col:"#354f52"},
-  {t:"Blue Valentine",y:2010,type:"Movie",g:"Romance",i:"7.4",c:"USA",mood:"melancholic",svc:"disney",b:"The rise and fall of a marriage, told with raw honesty.",col:"#5c677d"}
+  {t:"Blue Valentine",y:2010,type:"Movie",g:"Romance",i:"7.4",c:"USA",mood:"melancholic",svc:"disney",b:"The rise and fall of a marriage, told with raw honesty.",col:"#5c677d"},
+
+  // --- Apple TV+ ---
+  {t:"Severance",y:2022,type:"TV Show",g:"Sci-Fi",i:"8.7",c:"USA",mood:"curious",svc:"apple",b:"Office workers surgically split their work and home memories. Eerie, brilliant, endlessly discussed.",col:"#1b2a3a"},
+  {t:"Ted Lasso",y:2020,type:"TV Show",g:"Comedy",i:"8.8",c:"USA",mood:"happy",svc:"apple",b:"An American coach charms an English football team with relentless kindness. Pure comfort.",col:"#1b4965"},
+  {t:"Shrinking",y:2023,type:"TV Show",g:"Comedy",i:"8.2",c:"USA",mood:"relaxed",svc:"apple",b:"A grieving therapist starts breaking the rules. Funny, warm, a little sad — very rewatchable.",col:"#3a5a40"},
+  {t:"Slow Horses",y:2022,type:"TV Show",g:"Thriller",i:"8.3",c:"UK",mood:"tense",svc:"apple",b:"Washed-up MI5 rejects, led by a gloriously grubby Gary Oldman. Sharp spy thriller.",col:"#3b3b3b"},
+  {t:"Killers of the Flower Moon",y:2023,type:"Movie",g:"Drama",i:"7.6",c:"USA",mood:"melancholic",svc:"apple",b:"Scorsese's sweeping, sorrowful epic about betrayal and greed.",col:"#4a2f28"},
+
+  // --- Hulu ---
+  {t:"The Bear",y:2022,type:"TV Show",g:"Drama",i:"8.6",c:"USA",mood:"tense",svc:"hulu",b:"A fine-dining chef takes over his family's chaotic sandwich shop. Stress you can taste.",col:"#6f1d1b"},
+  {t:"Only Murders in the Building",y:2021,type:"TV Show",g:"Comedy",i:"8.1",c:"USA",mood:"funny",svc:"hulu",b:"Three true-crime obsessives investigate a death in their building. Cozy, witty whodunit.",col:"#7b3f61"},
+  {t:"Prey",y:2022,type:"Movie",g:"Action",i:"7.1",c:"USA",mood:"excited",svc:"hulu",b:"A Comanche warrior faces the Predator. Lean, tense, gorgeously shot.",col:"#3a2e1f"},
+  {t:"Normal People",y:2020,type:"TV Show",g:"Romance",i:"8.4",c:"IE",mood:"romantic",svc:"hulu",b:"An intimate, tender love story that will quietly wreck you.",col:"#8a5a44"},
+  {t:"Nomadland",y:2020,type:"Movie",g:"Drama",i:"7.3",c:"USA",mood:"melancholic",svc:"hulu",b:"A woman lives on the road across the American West. Quiet, beautiful, aching.",col:"#5c574f"},
+
+  // --- Peacock ---
+  {t:"Poker Face",y:2023,type:"TV Show",g:"Comedy",i:"8.0",c:"USA",mood:"curious",svc:"peacock",b:"A human lie-detector solves a mystery a week, on the run. Rian Johnson fun.",col:"#7a1f2b"},
+  {t:"Mrs. Davis",y:2023,type:"TV Show",g:"Sci-Fi",i:"7.4",c:"USA",mood:"curious",svc:"peacock",b:"A nun goes to war with an all-knowing AI. Wild, funny, unlike anything else.",col:"#2b3a67"},
+  {t:"The Traitors",y:2023,type:"TV Show",g:"Reality",i:"8.2",c:"USA",mood:"tense",svc:"peacock",b:"A backstabbing social deduction game in a Scottish castle. Absurdly addictive.",col:"#4a1c1c"},
+  {t:"Parks and Recreation",y:2009,type:"TV Show",g:"Comedy",i:"8.6",c:"USA",mood:"happy",svc:"peacock",b:"The sunniest workplace comedy ever. Leslie Knope will fix your mood.",col:"#3a7d44"},
+  {t:"Oppenheimer",y:2023,type:"Movie",g:"Drama",i:"8.3",c:"USA",mood:"tense",svc:"peacock",b:"Nolan's towering, ticking-clock portrait of the bomb and the man.",col:"#2b2b2b"},
+
+  // --- Paramount+ ---
+  {t:"Star Trek: Strange New Worlds",y:2022,type:"TV Show",g:"Sci-Fi",i:"8.3",c:"USA",mood:"adventurous",svc:"paramount",b:"Optimistic, episodic Trek done right. Great cast, big adventure.",col:"#1c3b5a"},
+  {t:"Yellowjackets",y:2021,type:"TV Show",g:"Thriller",i:"7.8",c:"USA",mood:"tense",svc:"paramount",b:"A girls' soccer team survives a crash — and turns feral. Dark and gripping (S1).",col:"#5a3a1f"},
+  {t:"A Quiet Place",y:2018,type:"Movie",g:"Thriller",i:"7.5",c:"USA",mood:"tense",svc:"paramount",b:"Stay silent or die. A masterclass in tension with barely any dialogue.",col:"#2f3e2f"},
+  {t:"Top Gun: Maverick",y:2022,type:"Movie",g:"Action",i:"8.2",c:"USA",mood:"excited",svc:"paramount",b:"The rare sequel that soars. Real jets, real stakes, total crowd-pleaser.",col:"#1d3557"},
+  {t:"Frasier",y:1993,type:"TV Show",g:"Comedy",i:"8.1",c:"USA",mood:"relaxed",svc:"paramount",b:"Impeccable, cozy sitcom writing. Perfect low-stakes comfort watching.",col:"#4a3f6b"}
 ];
 
 const svcMeta = Object.fromEntries(SERVICES.map(s=>[s.id,s]));
